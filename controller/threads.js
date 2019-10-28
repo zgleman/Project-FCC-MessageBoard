@@ -38,12 +38,13 @@ function ThreadHandler() {
     
   }
   this.find = function (thread_id) {
-    Thread.find({_id: thread_id});
+    var obj =Thread.find({_id: thread_id},null, {limit: 1});
+    return obj;
   }
   
   this.delete = function (thread_id, delete_password) {
     var obj = this.find(thread_id);
-    console.log(obj.delete_password);
+    console.log(obj);
     
     
   }

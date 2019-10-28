@@ -31,6 +31,20 @@ function threadHandler() {
       delete_password: delete_password,
       reported: false,
       replies:[]
-    }, function (){})
+    }, function (err, data){ 
+    if (err) return console.log(err)
+    return data});
+  }
+  
+  this.delete = function (thread_id, delete_password) {
+    
+  }
+  
+  this.list = function (board) {
+    
+  }
+  
+  this.report = function (thread_id) {
+    Thread.findByIdAndUpdate
   }
 }

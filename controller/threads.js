@@ -61,11 +61,10 @@ function ThreadHandler() {
    
   }
   
-  this.report = function (thread_id) {
-    Thread.findByIdAndUpdate(thread_id, {reported: true}, function(err, data){
-      if (err) console.log(err)
-      return 'Success';
-    } )
+  this.report = async function (thread_id) {
+    var obj = await Thread.findByIdAndUpdate(thread_id, {reported: true}, function(err, data){})
+    if (obj == undefined) {return 'Thread not found'}
+    else if (obj.reported == true){return 'Success'}
   }
 }
 

@@ -21,6 +21,7 @@ module.exports = function (app) {
     var delete_password = req.body.delete_password;
     var obj = threadHandler.create(board, text, delete_password);
     
+    
     res.redirect('/api/threads/' + obj.board);
   })
     .get(function(req, res){
@@ -36,7 +37,8 @@ module.exports = function (app) {
   })
   .put(function(req, res){
     var thread_id = req.body.thread_id;
-    var answer = threadHandler.report()
+    var answer = threadHandler.report(thread_id);
+    res.send(answer);
   })
   
   app.route('/api/replies/:board');

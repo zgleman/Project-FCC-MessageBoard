@@ -20,7 +20,7 @@ const Thread = mongoose.model('Thread', {
   }]
 });
 
-function threadHandler() {
+function ThreadHandler() {
   
   this.create = function (board, text, delete_password) {
     Thread.create({
@@ -54,7 +54,10 @@ function threadHandler() {
   this.list = function (board) {
     Thread.find({board: board}, function (err, data){
       if (err) console.log(err);
-      var list = data.
+      var list = data.sort(function(a,b){
+        return a.bumped_on - b.bumped_on
+      });
+      return list;
     })
   }
   
@@ -65,3 +68,5 @@ function threadHandler() {
     } )
   }
 }
+
+module.exports = ThreadHandler;

@@ -42,9 +42,12 @@ function ThreadHandler() {
     return obj;
   }
   
-  this.delete = function (thread_id, delete_password) {
-    var obj = this.find(thread_id);
-    console.log(obj);
+  this.delete = async function (thread_id, delete_password) {
+    var obj = await Thread.find({_id: thread_id});
+    if (obj[0].delete_password == delete_password) {
+      Thread.findByIdAndDelete(thread_id);
+      return success
+    }
     
     
   }

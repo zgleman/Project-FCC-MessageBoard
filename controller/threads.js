@@ -33,18 +33,35 @@ function threadHandler() {
       replies:[]
     }, function (err, data){ 
     if (err) return console.log(err)
-    return data});
+    return data;
+    });
   }
   
   this.delete = function (thread_id, delete_password) {
-    
+    Thread.findById(thread_id, function(err, data) {
+      if (err) console.log(err);
+      if (data.delete_password == delete_password) {
+        Thread.findByIdAndDelete(thread_id, function(err){
+          if (err) console.log(err);
+          return 'success';
+        })
+      } else {
+        return 'incorrect password';
+      }
+    })
   }
   
   this.list = function (board) {
-    
+    Thread.find({board: board}, function (err, data){
+      if (err) console.log(err);
+      var list = data.
+    })
   }
   
   this.report = function (thread_id) {
-    Thread.findByIdAndUpdate
+    Thread.findByIdAndUpdate(thread_id, {reported: true}, function(err, data){
+      if (err) console.log(err)
+      return 'Success';
+    } )
   }
 }

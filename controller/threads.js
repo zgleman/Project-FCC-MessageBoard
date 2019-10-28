@@ -37,14 +37,15 @@ function ThreadHandler() {
     return newThread;
     
   }
+  this.find = function (thread_id) {
+    Thread.find({_id: thread_id});
+  }
   
   this.delete = function (thread_id, delete_password) {
-    var obj = Thread.findById(thread_id)
-    if (obj.delete_password == delete_password) {
-      Thread.findByIdAndDelete(thread_id);
-      return 'success'
-    } else
-    return 'incorrect password'
+    var obj = this.find(thread_id);
+    console.log(obj.delete_password);
+    
+    
   }
   
   this.list = function (board) {

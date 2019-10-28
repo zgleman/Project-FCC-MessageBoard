@@ -29,15 +29,16 @@ module.exports = function (app) {
     obj = obj.map(d=>{return {_id: d.id, text: d.text, created_on: d.created_on, bumped_on: d.bumped_on, replies: [d.replies[d.replies.length-3], d.replies[d.replies.length-3], d.replies[d.replies.length-3]]}})
     res.json({obj});
   })
-  .delete(function(req, res){
+  .delete(async function(req, res){
     var thread_id = req.body.thread_id;
     var delete_password = req.body.delete_password;
-    var answer = threadHandler.delete(thread_id, delete_password);
+    var answer = await threadHandler.delete(thread_id, delete_password);
+    console.log(answer);
     res.send(answer);
   })
-  .put(function(req, res){
+  .put(async function(req, res){
     var thread_id = req.body.thread_id;
-    var answer = threadHandler.report(thread_id);
+    var answer = await threadHandler.report(thread_id);
     res.send(answer);
   })
   

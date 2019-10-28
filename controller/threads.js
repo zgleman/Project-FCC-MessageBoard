@@ -37,16 +37,17 @@ function ThreadHandler() {
     return newThread;
     
   }
-  this.find = function (thread_id) {
-    var obj =Thread.find({_id: thread_id},null, {limit: 1});
-    return obj;
-  }
+  
   
   this.delete = async function (thread_id, delete_password) {
     var obj = await Thread.find({_id: thread_id});
+    console.log(obj[0].delete_password == delete_password);
+    if (obj == undefined) { return 'Thread_id not found'} else
     if (obj[0].delete_password == delete_password) {
-      Thread.findByIdAndDelete(thread_id);
-      return success
+      await Thread.findByIdAndDelete(thread_id, function (err, thread){});
+      return 'success';
+    } else {
+      return 'incorrect password';
     }
     
     

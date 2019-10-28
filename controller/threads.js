@@ -39,17 +39,12 @@ function ThreadHandler() {
   }
   
   this.delete = function (thread_id, delete_password) {
-    Thread.findById(thread_id, function(err, data) {
-      if (err) console.log(err);
-      if (data.delete_password == delete_password) {
-        Thread.findByIdAndDelete(thread_id, function(err){
-          if (err) console.log(err);
-          return 'success';
-        })
-      } else {
-        return 'incorrect password';
-      }
-    })
+    var obj = Thread.findById(thread_id)
+    if (obj.delete_password == delete_password) {
+      Thread.findByIdAndDelete(thread_id);
+      return 'success'
+    } else
+    return 'incorrect password'
   }
   
   this.list = function (board) {

@@ -23,9 +23,9 @@ module.exports = function (app) {
        
     res.redirect('/api/threads/' + obj.board);
   })
-    .get(function(req, res){
+    .get(async function(req, res){
     var board = req.params.board;
-    var obj = threadHandler.list(board);
+    var obj = await threadHandler.list(board);
     res.json({obj});
   })
   .delete(function(req, res){

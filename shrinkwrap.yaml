@@ -8,6 +8,7 @@ dependencies:
   mocha: 3.5.3
   mongodb: 2.2.36
   mongoose: 5.7.7
+  shortid: 2.2.15
   zombie: 5.0.8
 packages:
   /abab/1.0.4:
@@ -1065,6 +1066,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
+  /nanoid/2.1.6:
+    dev: false
+    resolution:
+      integrity: sha512-2NDzpiuEy3+H0AVtdt8LoFi7PnqkOnIzYmJQp7xsEU6VexLluHQwKREuiz57XaQC5006seIadPrIZJhyS2n7aw==
   /negotiator/0.6.2:
     dev: false
     engines:
@@ -1373,6 +1378,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
+  /shortid/2.2.15:
+    dependencies:
+      nanoid: 2.1.6
+    dev: false
+    resolution:
+      integrity: sha512-5EaCy2mx2Jgc/Fdn9uuDuNIIfWBpzY4XIlhoqtXF6qsf+/+SGZ+FxDdX/ZsMZiWupIWNqAEmiNY4RC+LSmCeOw==
   /sift/7.0.1:
     dev: false
     resolution:
@@ -1644,4 +1655,5 @@ specifiers:
   mocha: ^3.2.0
   mongodb: ^2.2.16
   mongoose: ^5.7.7
+  shortid: ^2.2.15
   zombie: ^5.0.5

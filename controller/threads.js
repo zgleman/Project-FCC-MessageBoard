@@ -23,7 +23,7 @@ const Thread = mongoose.model('Thread', {
 function ThreadHandler() {
   
   this.create = function (board, text, delete_password) {
-    Thread.create({
+    var newThread = new Thread({
       board: board,
       text: text,
       created_on: new Date(),
@@ -31,11 +31,11 @@ function ThreadHandler() {
       delete_password: delete_password,
       reported: false,
       replies:[]
-    }, function (err, data){ 
-    if (err) return console.log(err)
-    
-    return data;
     });
+    newThread.save();
+        
+    return newThread;
+    
   }
   
   this.delete = function (thread_id, delete_password) {
@@ -53,13 +53,14 @@ function ThreadHandler() {
   }
   
   this.list = function (board) {
-    Thread.find({board: board}, function (err, data){
+    var log = Thread.find({board: board}, function (err, data){
       if (err) console.log(err);
       var list = data.sort(function(a,b){
         return a.bumped_on - b.bumped_on
       });
       return list;
     })
+    return log;
   }
   
   this.report = function (thread_id) {

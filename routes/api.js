@@ -20,8 +20,7 @@ module.exports = function (app) {
     var text = req.body.text;
     var delete_password = req.body.delete_password;
     var obj = threadHandler.create(board, text, delete_password);
-    
-    
+       
     res.redirect('/api/threads/' + obj.board);
   })
     .get(function(req, res){

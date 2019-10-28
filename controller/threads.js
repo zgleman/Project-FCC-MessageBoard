@@ -5,13 +5,17 @@ const shortid = require('shortid');
 const thread = mongoose.model('thread', {
   _id: {'type': String,
         'default': shortid.generate},
-  board: String,
-  thread: String,
-  password: String,
+  text: String,
+  created_on: Date,
+  bumped_on: Date,  
+  delete_password: String,
   reported: Boolean,
-  replies:[{ 
-            time: Date,
-            message: String
+  replies:[{_id: {type: String,
+                  default: shortid.generate}, 
+            created_on: Date,
+            text: String,
+            delete_password: String,
+            reported: Boolean
   }]
 });
 

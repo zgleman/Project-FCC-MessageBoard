@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.DB, {useNewUrlParser: true});
 const shortid = require('shortid');
 
-const thread = mongoose.model('thread', {
+const Thread = mongoose.model('Thread', {
+  board: String,
   _id: {'type': String,
         'default': shortid.generate},
   text: String,
@@ -19,3 +20,17 @@ const thread = mongoose.model('thread', {
   }]
 });
 
+function threadHandler() {
+  
+  this.create = function (board, text, delete_password) {
+    Thread.create({
+      board: board,
+      text: text,
+      created_on: new Date(),
+      bumped_on: new Date(),  
+      delete_password: delete_password,
+      reported: false,
+      replies:[]
+    }, function (){})
+  }
+}

@@ -26,7 +26,7 @@ module.exports = function (app) {
     .get(async function(req, res){
     var board = req.params.board;
     var obj = await threadHandler.list(board);
-    res.json({obj});
+    res.json({_id: obj.id, text: obj.text, created_on: obj.created_on, bumped_on: obj.bumped_on, replies: [obj.replies[0], obj.replies[1], obj.replies[2]]});
   })
   .delete(function(req, res){
     var thread_id = req.body.thread_id;

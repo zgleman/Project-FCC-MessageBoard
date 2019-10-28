@@ -53,8 +53,13 @@ function ThreadHandler() {
   }
   
   this.list = function (board) {
-    var list = Thread.find({board: board})
+    var list = Thread.find({board: board}, null, {sort: bumped_on, limit: 10});
     
+    
+    
+    return list;
+    
+   
   }
   
   this.report = function (thread_id) {

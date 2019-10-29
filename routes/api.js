@@ -62,6 +62,7 @@ module.exports = function (app) {
     var obj = await threadHandler.replyList(thread_id);
     if (obj == null) { res.send('Thread_id not found');
     }
+    obj.replies = obj.replies.map((d)=>{return {_id:d._id, created_on: d.created_on, text: d.text}});
      res.json({_id: obj.id, text: obj.text, created_on: obj.created_on, bumped_on: obj.bumped_on, replies: obj.replies});
     
   })

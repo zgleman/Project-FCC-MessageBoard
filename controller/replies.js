@@ -22,7 +22,7 @@ const Thread = mongoose.model('Thread', {
 
 function ReplyHandler() {
   
-   this.newReply = function (board, text, delete_password) {
+   this.newReply = function (board, thread_id, text, delete_password) {
     var newThread = new Thread({
       board: board,
       text: text,
@@ -53,8 +53,8 @@ function ReplyHandler() {
     
   }
   
-  this.replyList = function (board) {
-    var list = Thread.find({board: board}, null, {sort: {bumped_on: -1}, limit: 10});
+  this.replyList = function (thread_id) {
+    var list = Thread.find({_id: thread_id});
     
     return list;
     

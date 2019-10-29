@@ -18,7 +18,7 @@ suite('Functional Tests', function() {
   suite('API ROUTING FOR /api/threads/:board', function() {
     
     suite('POST', function() {
-      test('', function(done){
+      test('Test Post', function(done){
          chai.request(server)
         .post('/api/threads/test')
         .send({
@@ -35,17 +35,52 @@ suite('Functional Tests', function() {
     });
     
     suite('GET', function() {
-      test('', function(done){
+      test('List of all thread on board', function(done){
         chai.request(server)
-          .get('/api/threads/test')
-          .end(function(err, res){
-        
+        .get('/api/threads/test')
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.isArray(res.body);
+          done();
             }
            )});
     });
     
     suite('DELETE', function() {
-      
+      test('Delete with Incorrect Password then Correct Password', function(done){
+        chai.request(server)
+        .post('/api/threads/test')
+        .send({
+           text: 'test to delete',
+           delete_password: '1234'
+         })
+        .end(function(err, res){
+           assert.equal(res.status, 200);
+           assert.equal(res.body[0].text, 'test to delete');
+           assert.equal(res.body[0].delete_password, '1234');
+             chai.request(server)
+            .delete('/api/threads/test')
+            .send({thread_id: res.body[0]._id,
+              delete_password: '1'})
+              .end(function(err, res2){
+                assert.equal(res.status, 200);
+                assert.equal(res.body, 'incorrect password');
+                done();
+            }
+           )
+         })
+        });
+      test('Delete with Correct Password', function(done){
+        chai.request(server)
+        .delete('/api/threads/test')
+        .send({thread_id: '',
+              delete_password: '1'})
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.equal(res.body, 'incorrect password');
+          done();
+            }
+           )});
     });
     
     suite('PUT', function() {

@@ -83,9 +83,11 @@ module.exports = function (app) {
     var obj = await threadHandler.deleteReply(thread_id, reply_id, delete_password);
     res.send(obj);
   })
-    .put(function(req, res){
+    .put(async function(req, res){
     var thread_id = req.body.thread_id;
     var reply_id = req.body.reply_id;
+    var obj = await threadHandler.reportReply(thread_id, reply_id);
+    res.send(obj);
   })
 
 };

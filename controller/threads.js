@@ -120,9 +120,16 @@ function ThreadHandler() {
   }
   
   this.reportReply = async function (thread_id, reply_id) {
-    var obj = await Thread.findByIdAndUpdate(thread_id, {reported: true}, function(err, data){})
+    var obj = await Thread.findById(thread_id);
     if (obj == undefined) {return 'Thread not found'}
-    else if (obj.reported == true){return 'Success'}
+    var location = obj.replies.map((d)=> d._id).indexOf(reply_id);
+    if (location == -1) {return 'Reply not found'}
+    await Thread.findById(thread_id, function(err, data){
+      data.replies[location].reported = true;
+      data.save(function(err){});
+    })
+    return 'Success';
+    
   }
 }
 

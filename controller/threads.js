@@ -105,9 +105,7 @@ function ThreadHandler() {
   }
   
   this.replyList = async function (thread_id) {
-    console.log(thread_id);
-    var list = await Thread.find({_id: thread_id});
-    console.log(list);
+    var list = await Thread.findById(thread_id, function(err, data){});
     return list;
     
    

@@ -58,10 +58,11 @@ module.exports = function (app) {
     
     .get(async function(req, res){
     var board = req.params.board;
-    var thread_id = req.body.thread_id;
+    var thread_id = req.query.thread_id;
     var obj = await threadHandler.replyList(thread_id);
-    
-    console.log(obj);
+    if (obj == null) { res.send('Thread_id not found');
+    }
+     res.json({_id: obj.id, text: obj.text, created_on: obj.created_on, bumped_on: obj.bumped_on, replies: obj.replies});
     
   })
     .delete(function(req, res){

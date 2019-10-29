@@ -55,6 +55,7 @@ module.exports = function (app) {
       res.redirect('/api/replies/' + board + '?thread_id=' + thread_id);
     
     })
+    
     .get(async function(req, res){
     var board = req.params.board;
     var thread_id = req.body.thread_id;

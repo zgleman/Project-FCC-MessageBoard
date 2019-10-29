@@ -73,7 +73,7 @@ function ThreadHandler() {
             delete_password: delete_password,
             reported: false
             } 
-    console.log(thread_id);
+    
     var obj = await Thread.findById(thread_id,  function(err, data){
       if (err) console.log(err);
       data.bumped_on = new Date();

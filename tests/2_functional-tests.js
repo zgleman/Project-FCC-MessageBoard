@@ -166,7 +166,7 @@ suite('Functional Tests', function() {
        chai.request(server)
         .post('/api/threads/test')
         .send({
-           text: 'Test Thread',
+           text: 'Test Thread for reply report',
            delete_password: '1234'
          })
         .end(function(err, res){
@@ -180,13 +180,13 @@ suite('Functional Tests', function() {
         .end(function(err, res2){
          assert.equal(res2.status, 200);
          assert.equal(res2.body._id, res.body[0]._id);
-         assert.equal(res2.body.text, 'Test Thread');
-         assert.equal(res2.body.replies[res2.body.replies.length-1].text, 'reply to report')
+         assert.equal(res2.body.text, 'Test Thread for reply report');
+         assert.equal(res2.body.replies[0].text, 'reply to report')
           chai.request(server)
           .put('/api/replies/test')
           .send({
            thread_id: res.body[0]._id,
-           reply_id: res2.body.replies[res2.body.replies.length-1]._id
+           reply_id: res2.body.replies[0]._id
            })
           .end(function(err, res3){
            assert.equal(res2.status, 200);
@@ -203,7 +203,7 @@ suite('Functional Tests', function() {
        chai.request(server)
         .post('/api/threads/test')
         .send({
-           text: 'Test Thread',
+           text: 'Test Thread for reply delete',
            delete_password: '1234'
          })
         .end(function(err, res){
@@ -217,13 +217,13 @@ suite('Functional Tests', function() {
         .end(function(err, res2){
          assert.equal(res2.status, 200);
          assert.equal(res2.body._id, res.body[0]._id);
-         assert.equal(res2.body.text, 'Test Thread');
-         assert.equal(res2.body.replies[res2.body.replies.length-1].text, 'reply to delete')
+         assert.equal(res2.body.text, 'Test Thread for reply delete');
+         assert.equal(res2.body.replies[0].text, 'reply to delete')
           chai.request(server)
           .delete('/api/replies/test')
           .send({
            thread_id: res.body[0]._id,
-           reply_id: res2.body.replies[res2.body.replies.length-1]._id,
+           reply_id: res2.body.replies[0]._id,
           delete_password: '12'
            })
           .end(function(err, res3){
@@ -233,8 +233,8 @@ suite('Functional Tests', function() {
               .delete('/api/replies/test')
               .send({
                thread_id: res.body[0]._id,
-               reply_id: res2.body.replies[res2.body.replies.length-1]._id,
-              delete_password: '12'
+               reply_id: res2.body.replies[0]._id,
+              delete_password: '1234'
                })
               .end(function(err, res4){
                assert.equal(res4.status, 200);

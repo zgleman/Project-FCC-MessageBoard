@@ -93,7 +93,7 @@ function ThreadHandler() {
     var obj = await Thread.findById(thread_id, function(err, data){})
     if (obj == undefined) { return 'Thread not found'}
     var location = obj.replies.map((d)=> d._id).indexOf(reply_id);
-    console.log(location);
+    
     if (location == -1) {return 'reply not found'}
     if (obj.replies[location].delete_password != delete_password){
         return 'incorrect password';
@@ -102,7 +102,7 @@ function ThreadHandler() {
       await Thread.findById(thread_id, function(err, data){
         data.replies.splice(location, 1);
         data.save(function(err){});
-        console.log(data)
+        
       })
       return 'Success'
     }

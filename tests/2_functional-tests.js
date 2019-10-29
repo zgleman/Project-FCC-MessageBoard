@@ -27,13 +27,21 @@ suite('Functional Tests', function() {
          })
         .end(function(err, res){
            assert.equal(res.status, 200);
-           
+           assert.equal(res.body[0].text, 'test text to post');
+           assert.equal(res.body[0].delete_password, '1234');
+           done();
          })
       })
     });
     
     suite('GET', function() {
-      
+      test('', function(done){
+        chai.request(server)
+          .get('/api/threads/test')
+          .end(function(err, res){
+        
+            }
+           )});
     });
     
     suite('DELETE', function() {

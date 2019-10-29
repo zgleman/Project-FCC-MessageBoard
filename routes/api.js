@@ -28,16 +28,10 @@ module.exports = function (app) {
     .get(async function(req, res){
     var board = req.params.board;
     var obj = await threadHandler.list(board);
-    obj = await obj.map(d=>{
-      return {_id: d.id, text: d.text, created_on: d.created_on, bumped_on: d.bumped_on, replies: [{_id:d.replies[d.replies.length-3].id,
-                                                                                                                   created_on: d.replies[d.replies.length-3].created_on,
-                                                                                                                   text: d.replies[d.replies.length-3].text},
-                                                                                                                   {_id:d.replies[d.replies.length-2].id,
-                                                                                                                   created_on: d.replies[d.replies.length-2].created_on,
-                                                                                                                   text: d.replies[d.replies.length-2].text}, 
-                                                                                                                   {_id:d.replies[d.replies.length-1].id,
-                                                                                                                   created_on: d.replies[d.replies.length-1].created_on,
-                                                                                                                   text: d.replies[d.replies.length-1].text}]}});
+    obj = await obj.map(d=>{ 
+      var reply = [];
+      if (d.replies.length > 0) {reply = d.replies.map( a=>{return {_id:a._id, created_on: a.created_on, text: a.text}})}
+      return {_id: d.id, text: d.text, created_on: d.created_on, bumped_on: d.bumped_on, replies: reply}});
     
     res.json({obj});
   })

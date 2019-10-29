@@ -66,6 +66,42 @@ function ThreadHandler() {
     if (obj == undefined) {return 'Thread not found'}
     else if (obj.reported == true){return 'Success'}
   }
+  
+  this.newReply = async function (board, thread_id, text, delete_password) {
+    var obj = await Thread.
+        
+    return newThread;
+    
+  }
+  
+  
+  this.deleteReply = async function (thread_id, delete_password) {
+    var obj = await Thread.find({_id: thread_id});
+    console.log(obj[0].delete_password == delete_password);
+    if (obj == undefined) { return 'Thread_id not found'} else
+    if (obj[0].delete_password == delete_password) {
+      await Thread.findByIdAndDelete(thread_id, function (err, thread){});
+      return 'success';
+    } else {
+      return 'incorrect password';
+    }
+    
+    
+  }
+  
+  this.replyList = function (thread_id) {
+    var list = Thread.find({_id: thread_id});
+    
+    return list;
+    
+   
+  }
+  
+  this.reportReply = async function (thread_id) {
+    var obj = await Thread.findByIdAndUpdate(thread_id, {reported: true}, function(err, data){})
+    if (obj == undefined) {return 'Thread not found'}
+    else if (obj.reported == true){return 'Success'}
+  }
 }
 
 module.exports = ThreadHandler;

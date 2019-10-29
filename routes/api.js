@@ -28,7 +28,8 @@ module.exports = function (app) {
     .get(async function(req, res){
     var board = req.params.board;
     var obj = await threadHandler.list(board);
-    obj = await obj.map(d=>{return {_id: d.id, text: d.text, created_on: d.created_on, bumped_on: d.bumped_on, replies: [{_id:d.replies[d.replies.length-3].id,
+    obj = await obj.map(d=>{
+      return {_id: d.id, text: d.text, created_on: d.created_on, bumped_on: d.bumped_on, replies: [{_id:d.replies[d.replies.length-3].id,
                                                                                                                    created_on: d.replies[d.replies.length-3].created_on,
                                                                                                                    text: d.replies[d.replies.length-3].text},
                                                                                                                    {_id:d.replies[d.replies.length-2].id,

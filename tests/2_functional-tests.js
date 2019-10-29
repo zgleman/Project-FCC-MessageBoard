@@ -18,7 +18,18 @@ suite('Functional Tests', function() {
   suite('API ROUTING FOR /api/threads/:board', function() {
     
     suite('POST', function() {
-      
+      test('', function(done){
+         chai.request(server)
+        .post('/api/threads/test')
+        .send({
+           text: 'test text to post',
+           delete_password: '1234'
+         })
+        .end(function(err, res){
+           assert.equal(res.status, 200);
+           
+         })
+      })
     });
     
     suite('GET', function() {

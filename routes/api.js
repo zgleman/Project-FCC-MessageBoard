@@ -39,7 +39,7 @@ module.exports = function (app) {
     var thread_id = req.body.thread_id;
     var delete_password = req.body.delete_password;
     var answer = await threadHandler.delete(thread_id, delete_password);
-    console.log(answer);
+    
     res.send(answer);
   })
   .put(async function(req, res){

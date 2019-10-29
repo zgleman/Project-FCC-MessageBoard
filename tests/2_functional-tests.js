@@ -62,15 +62,16 @@ suite('Functional Tests', function() {
             .send({thread_id: res.body[0]._id,
               delete_password: '1'})
               .end(function(err, res2){
+               
                 assert.equal(res2.status, 200);
-                assert.equal(res2.body, 'incorrect password');
+                assert.equal(res2.text, 'incorrect password');
                   chai.request(server)
                     .delete('/api/threads/test')
                     .send({thread_id: res.body[0]._id,
                             delete_password: '1234'})
                     .end(function(err, res3){
                       assert.equal(res3.status, 200);
-                      assert.equal(res3.body, 'success');
+                      assert.equal(res3.text, 'success');
                       done();
             }
            )
@@ -82,7 +83,28 @@ suite('Functional Tests', function() {
     });
     
     suite('PUT', function() {
-      
+      test('Report thread', function(done){
+         chai.request(server)
+        .post('/api/threads/test')
+        .send({
+           text: 'thread to report',
+           delete_password: '1234'
+         })
+        .end(function(err, res){
+           assert.equal(res.status, 200);
+           assert.equal(res.body[0].text, 'thread to report');
+            chai.request(server)
+            .put('/api/threads/test')
+            .send({
+               thread_id: res.body[0]._id,
+               })
+            .end(function(err, res2){
+               assert.equal(res2.status, 200);
+               assert.equal(res2.text, 'Success');
+               done();
+         })
+         })
+      })
     });
     
 

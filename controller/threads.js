@@ -68,9 +68,16 @@ function ThreadHandler() {
   }
   
   this.newReply = async function (board, thread_id, text, delete_password) {
-    var obj = await Thread.
-        
-    return newThread;
+    var reply = { 
+            created_on: new Date(),
+            text: text,
+            delete_password: delete_password,
+            reported: false
+            }    
+    var obj = await Thread.findByIdAndUpdate(thread_id, {bumped_on: new Date(), replies: this.replies.push(reply)}, function(err, data){});
+    if (obj == undefined) {return 'Thread not found'}
+    else return obj;
+    
     
   }
   
@@ -89,8 +96,9 @@ function ThreadHandler() {
     
   }
   
-  this.replyList = function (thread_id) {
-    var list = Thread.find({_id: thread_id});
+  this.replyList = async function (thread_id) {
+    console.log('test');
+    var list = await Thread.find({_id: thread_id});
     
     return list;
     

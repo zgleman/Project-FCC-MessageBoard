@@ -84,7 +84,8 @@ module.exports = function (app) {
     res.send(obj);
   })
     .put(function(req, res){
-    
+    var thread_id = req.body.thread_id;
+    var reply_id = req.body.reply_id;
   })
 
 };

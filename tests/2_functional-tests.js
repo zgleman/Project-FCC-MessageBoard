@@ -227,9 +227,19 @@ suite('Functional Tests', function() {
           delete_password: '12'
            })
           .end(function(err, res3){
-           assert.equal(res2.status, 200);
+           assert.equal(res3.status, 200);
            assert.equal(res3.text, 'incorrect password');
-           
+             chai.request(server)
+              .delete('/api/replies/test')
+              .send({
+               thread_id: res.body[0]._id,
+               reply_id: res2.body.replies[res2.body.replies.length-1]._id,
+              delete_password: '12'
+               })
+              .end(function(err, res4){
+               assert.equal(res4.status, 200);
+               assert.equal(res4.text, 'Success');
+               done();
       })
       })
     });
@@ -238,4 +248,5 @@ suite('Functional Tests', function() {
     
   });
 
+});
 });

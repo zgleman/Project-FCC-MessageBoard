@@ -75,8 +75,13 @@ module.exports = function (app) {
      res.json({_id: obj.id, text: obj.text, created_on: obj.created_on, bumped_on: obj.bumped_on, replies: obj.replies});
     
   })
-    .delete(function(req, res){
-    
+    .delete(async function(req, res){
+    var board = req.params.board;
+    var thread_id = req.body.thread_id;
+    var reply_id = req.body.reply_id;
+    var delete_password = req.body.delete_password;
+    var obj = await threadHandler.deleteReply(thread_id, reply_id, delete_password);
+    res.send(obj);
   })
     .put(function(req, res){
     

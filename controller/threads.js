@@ -93,11 +93,17 @@ function ThreadHandler() {
   this.deleteReply = async function (thread_id, reply_id, delete_password) {
     var obj = await Thread.findById(thread_id, function(err, data){
       if (err) console.log(err);
-      var location = data.replies.instanceOf({_id: reply_id});
+      var location = data.replies.map((d)=> d._id).indexOf(reply_id);
       console.log(location);
+      if (location == -1) {return 'reply not found'}
+      
+      if (data.replies[location].delete_password != delete_password){
+        return 'incorrect password';
+      }
     });
+    if (obj == undefined) {return 'Thread not found'}
     
-    
+    return obj;
   }
   
   this.replyList = async function (thread_id) {

@@ -111,18 +111,19 @@ suite('Functional Tests', function() {
   });
   
   suite('API ROUTING FOR /api/replies/:board', function() {
-    chai.request(server)
+    
+    suite('POST', function() {
+     test('Post reply', function(done){ 
+       chai.request(server)
         .post('/api/threads/test')
         .send({
            text: 'Thread for testing replies',
            delete_password: '1234'
          })
         .end(function(err, res){
-    suite('POST', function() {
-     test('Post reply', function(done){ 
-      chai.request(server)
-        .post('/api/threads/test')
-        .send({
+          chai.request(server)
+          .post('/api/replies/test')
+          .send({
            thread_id: res.body[0]._id,
            text: 'reply post',
            delete_password: '1234'
@@ -132,11 +133,35 @@ suite('Functional Tests', function() {
          assert.equal(res2.body._id, res.body[0]._id);
          assert.equal(res2.body.text, 'Thread for testing replies');
          assert.equal(res2.body.replies[res2.body.replies.length-1].text, 'reply post')
+        done();
       })
     });
     });
+    });
     suite('GET', function() {
-      
+      test('Post reply', function(done){ 
+       chai.request(server)
+        .post('/api/threads/test')
+        .send({
+           text: 'Thread for testing Get',
+           delete_password: '1234'
+         })
+        .end(function(err, res){
+          chai.request(server)
+          .get('/api/replies/test')
+          .send({
+           thread_id: res.body[0]._id,
+           
+         })
+        .end(function(err, res2){
+         assert.equal(res2.status, 200);
+         assert.equal(res2.body._id, res.body[0]._id);
+         assert.equal(res2.body.text, 'Thread for testing Get');
+         
+        done();
+      })
+    });
+    });
     });
     
     suite('PUT', function() {
@@ -149,5 +174,4 @@ suite('Functional Tests', function() {
     
   });
 
-});
 });

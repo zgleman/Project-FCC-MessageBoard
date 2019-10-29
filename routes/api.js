@@ -33,7 +33,7 @@ module.exports = function (app) {
       if (d.replies.length > 0) {reply = d.replies.map( a=>{return {_id:a._id, created_on: a.created_on, text: a.text}})}
       return {_id: d.id, text: d.text, created_on: d.created_on, bumped_on: d.bumped_on, replies: reply}});
     
-    res.json({obj});
+    res.json(obj);
   })
   .delete(async function(req, res){
     var thread_id = req.body.thread_id;

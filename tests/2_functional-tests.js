@@ -28,8 +28,7 @@ suite('Functional Tests', function() {
         .end(function(err, res){
            assert.equal(res.status, 200);
            assert.equal(res.body[0].text, 'test text to post');
-           assert.equal(res.body[0].delete_password, '1234');
-           done();
+            done();
          })
       })
     });
@@ -57,30 +56,29 @@ suite('Functional Tests', function() {
         .end(function(err, res){
            assert.equal(res.status, 200);
            assert.equal(res.body[0].text, 'test to delete');
-           assert.equal(res.body[0].delete_password, '1234');
+           
              chai.request(server)
             .delete('/api/threads/test')
             .send({thread_id: res.body[0]._id,
               delete_password: '1'})
               .end(function(err, res2){
-                assert.equal(res.status, 200);
-                assert.equal(res.body, 'incorrect password');
-                done();
+                assert.equal(res2.status, 200);
+                assert.equal(res2.body, 'incorrect password');
+                  chai.request(server)
+                    .delete('/api/threads/test')
+                    .send({thread_id: res.body[0]._id,
+                            delete_password: '1234'})
+                    .end(function(err, res3){
+                      assert.equal(res3.status, 200);
+                      assert.equal(res3.body, 'success');
+                      done();
+            }
+           )
             }
            )
          })
         });
-      test('Delete with Correct Password', function(done){
-        chai.request(server)
-        .delete('/api/threads/test')
-        .send({thread_id: '',
-              delete_password: '1'})
-        .end(function(err, res){
-          assert.equal(res.status, 200);
-          assert.equal(res.body, 'incorrect password');
-          done();
-            }
-           )});
+      
     });
     
     suite('PUT', function() {

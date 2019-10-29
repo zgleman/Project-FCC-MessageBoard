@@ -93,16 +93,9 @@ function ThreadHandler() {
   this.deleteReply = async function (thread_id, reply_id, delete_password) {
     var obj = await Thread.findById(thread_id, function(err, data){
       if (err) console.log(err);
-      data.replies.instanceOf({_id: reply_id});
+      var location = data.replies.instanceOf({_id: reply_id});
+      console.log(location);
     });
-    console.log(obj[0].delete_password == delete_password);
-    if (obj == undefined) { return 'Thread_id not found'} else
-    if (obj[0].delete_password == delete_password) {
-      await Thread.findByIdAndDelete(thread_id, function (err, thread){});
-      return 'success';
-    } else {
-      return 'incorrect password';
-    }
     
     
   }
